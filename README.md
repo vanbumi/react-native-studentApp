@@ -159,6 +159,8 @@ Update LoginForm:
 		}
 	}		
 
+![login-form](http://res.cloudinary.com/medioxtra/image/upload/c_scale,h_218,w_300/v1496668206/loginform_in0a44.png)
+
 ## Handling form update with Action Creator
 
 
