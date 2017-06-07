@@ -163,6 +163,98 @@ Update LoginForm:
 
 ## Handling form update with Action Creator
 
+![redux-handling-form](http://res.cloudinary.com/medioxtra/image/upload/c_scale,h_440,w_430/v1496669405/redux-handling-login-form_r9xkfe.png)
+
+Update the code:
+
+	onChangeText={this.onEmailChange.bind(this)}
+
+Create method for that event handler:
+
+	onEmailChange(text) {
+
+	}
+
+Inside of there we going to call action creator, so create new folder & file src/actions/index.js :
+
+Create action creator :
+
+	export const emailChanged = (text) => {
+		inside...
+	}
+
+Inside there return an **object** of **action**
+
+	export const emailChanged = (text) => {
+		return {
+			type: 'email_changed',
+			payload: text
+		}
+	}	
+
+Back to LoginForm.js :
+
+	import { connect } from 'react-redux';
+
+import action creator:
+
+	import { emailChanged } from '../actions';
+
+at the bottom hooked up action creator with connect helper:
+
+	export default connect()(LoginForm)
+
+Add argument, for first argument we dont have mapStateToProps function yet
+
+	export default connect(null, .. )(LoginForm)
+
+and 2nd argument is action creator that we want bind to the component.
+
+	export default connect(null, {emailChanged} )(LoginForm);
+
+Because we wire up action creator we now have action to props inside of component emailChanged:
+
+	this.props.emailChanged(text);
+
+	onEmailChange(text) {
+    this.props.emailChanged(text);
+  }
+
+Next we need to reducers to receive and catch emailChange action, create new file under reducers named AuthReducer.js
+
+Update reducers/index.js to wire up that new reducers:
+
+	import AuthReducer from './AuthReducer';
+
+	export default combineReducers({
+		auth: AuthReducer
+	});
+
+Update AuthReducer.js, type boiler plate for every reducers:
+
+	export default (state = INITIAL_STATE, action) => {
+		switch(action.type) {
+			default:
+				return state;
+		}
+	};
+
+Next to remember never retur undefined to reducer, because first time start is run and return default state. So create variable INITIAL_STATE:
+
+	const INITIAL_STATE = { email: '' }
+
+become:
+
+	export default (state = INITIAL_STATE, action) => {
+		switch(action.type) {
+			default:
+				return state;
+		}
+	};	
+
+110 next
+
+
 
 
 
